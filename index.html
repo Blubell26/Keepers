@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keepers of the Wild Heart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+:root {
+  --black: #0a0a0a;
+  --deep: #111111;
+  --ember: #c4521a;
+  --flame: #e8956d;
+  --gold: #c9a96e;
+  --white: #f0ebe3;
+  --grey: rgba(240,235,227,0.45);
+  --line: rgba(240,235,227,0.1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.35;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 72px;
+  overflow: hidden;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,10,0.2) 0%,
+    rgba(10,10,10,0.1) 35%,
+    rgba(10,10,10,0.55) 65%,
+    rgba(10,10,10,0.95) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 28px;
+  max-width: 520px;
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.3s forwards;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 9vw, 58px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--flame);
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(240,235,227,0.7);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.9s forwards;
+}
+
+.hero-cta {
+  opacity: 0;
+  animation: fadeUp 1.2s ease 1.1s forwards;
+}
+
+/* ── SCROLL HINT ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease 2s forwards;
+}
+
+.scroll-hint span {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,235,227,0.3);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(201,169,110,0.6), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 16px 40px;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--ember);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--flame);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(240,235,227,0.25);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(240,235,227,0.6);
+}
+
+/* ── SECTIONS ── */
+.section {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 80px 28px;
+}
+
+.section-center { text-align: center; }
+
+.rule {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  margin: 0 auto 60px;
+}
+
+/* ── MANIFESTO ── */
+.manifesto-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.manifesto-line.gold { color: var(--gold); }
+
+/* ── BODY TEXT ── */
+.body-text {
+  font-size: 15px;
+  color: rgba(240,235,227,0.72);
+  line-height: 1.9;
+  text-align: center;
+}
+
+.body-text p + p { margin-top: 18px; }
+
+/* ── WHAT THIS IS ── */
+.what-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.what-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.what-item:first-child { border-top: 1px solid var(--line); }
+
+.what-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  color: var(--gold);
+  opacity: 0.6;
+  min-width: 24px;
+  padding-top: 2px;
+}
+
+.what-text {
+  font-size: 14px;
+  color: rgba(240,235,227,0.75);
+  line-height: 1.8;
+}
+
+.what-text strong {
+  font-weight: 400;
+  color: var(--white);
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+}
+
+/* ── ANTI COURSE ── */
+.anti-block {
+  background: rgba(196,82,26,0.07);
+  border: 1px solid rgba(196,82,26,0.2);
+  border-radius: 2px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.anti-label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 20px;
+}
+
+.anti-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.anti-body {
+  font-size: 14px;
+  color: rgba(240,235,227,0.68);
+  line-height: 1.85;
+  margin-bottom: 8px;
+}
+
+/* ── GIULIA ── */
+.giulia-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  margin: 0 auto 32px;
+}
+
+.giulia-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(240,235,227,0.85);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.giulia-name {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ── FORM ── */
+.form-wrap {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.form-sub {
+  font-size: 12px;
+  color: var(--grey);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-field input {
+  width: 100%;
+  background: rgba(240,235,227,0.05);
+  border: 1px solid rgba(240,235,227,0.15);
+  border-radius: 1px;
+  padding: 16px 20px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-field input::placeholder {
+  color: rgba(240,235,227,0.3);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.form-field input:focus {
+  border-color: rgba(196,82,26,0.5);
+}
+
+.form-field .btn {
+  width: 100%;
+  text-align: center;
+}
+
+.form-note {
+  font-size: 11px;
+  color: rgba(240,235,227,0.28);
+  text-align: center;
+  margin-top: 16px;
+  letter-spacing: 0.06em;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 40px 28px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(240,235,227,0.2);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.15); }
+}
+```
+
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <img src="IMG_4094.jpeg" alt="Keepers of the Wild Heart" class="hero-img">
+    <div class="hero-veil"></div>
+
+```
+<div class="hero-content">
+  <p class="hero-eyebrow">The anti-course</p>
+  <h1 class="hero-title">Keepers of the<br><em>Wild Heart</em></h1>
+  <p class="hero-sub">This is not about finding more answers outside of yourself. This is about remembering the ones you already carry.</p>
+  <div class="hero-cta">
+    <a href="#notify" class="btn btn-primary">Notify me when it opens</a>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- MANIFESTO -->
+
+  <div class="section section-center">
+    <div class="rule"></div>
+    <p class="manifesto-line">You have been looking in the wrong direction.</p>
+    <p class="manifesto-line gold">Everything you need is already inside you.</p>
+    <p class="manifesto-line">It always has been.</p>
+  </div>
+
+  <!-- BODY -->
+
+  <div class="section section-center">
+    <div class="body-text">
+      <p>There is a version of you that existed before anyone told you what to want, how much to ask for, what kind of life was reasonable for someone like you. Before the noise. Before the performance. Before you started looking outside yourself for the answers that were never out there to begin with.</p>
+      <p>Most courses make you dependent on knowing more. On the next framework, the next teacher, the next thing that will finally fix what feels broken. This one does the opposite. It asks the questions nobody else is asking. The ones that lead you back to yourself.</p>
+      <p>How do I be myself and do what I actually want to do? What is truly important to me when I strip everything else away? What do I already know that I have been pretending not to know?</p>
+    </div>
+  </div>
+
+  <!-- ANTI-COURSE -->
+
+  <div class="section">
+    <div class="anti-block">
+      <p class="anti-label">What this is</p>
+      <p class="anti-title">The course designed to make itself unnecessary.</p>
+      <p class="anti-body">Four weeks. Going deep. No hand-holding, no dependency, no teaching you things you need to keep coming back to learn. Just the right questions, asked in the right order, until you stop needing to look outside yourself for what you already know.</p>
+      <p class="anti-body">You won't need much after this.</p>
+    </div>
+  </div>
+
+  <!-- WHAT HAPPENS -->
+
+  <div class="section">
+    <div class="what-grid">
+      <div class="what-item">
+        <span class="what-num">I</span>
+        <div class="what-text">
+          <strong>The unlearning</strong>
+          You see the script clearly — what was handed to you, what it cost you, what it is still costing you. You stop mistaking inherited instructions for reality.
+        </div>
+      </div>
+      <div class="what-item">
+        <span class="what-num">II</span>
+        <div class="what-text">
+          <strong>The remembering</strong>
+          You begin to hear yourself again. Not the performed version, not the acceptable version. The actual signal underneath all the noise that you have been translating into something smaller for years.
+        </div>
+      </div>
+      <div class="what-item">
+        <span class="what-num">III</span>
+        <div class="what-text">
+          <strong>The repossession</strong>
+          You take back what was always yours. The life, the time, the income, the rhythm, the freedom to build something that is entirely and unapologetically yours.
+        </div>
+      </div>
+      <div class="what-item">
+        <span class="what-num">IV</span>
+        <div class="what-text">
+          <strong>The long game</strong>
+          You understand what building an unconventional life actually requires — not perfection, not certainty, just the willingness to keep going when it gets uncertain. And it will.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIULIA -->
+
+  <div class="section section-center">
+    <div class="giulia-line"></div>
+    <p class="giulia-quote">"I spent years looking for a course that asked how to be myself and do what I actually wanted. I never found it. So I built it."</p>
+    <p class="giulia-name">Giulia · Wild Hearts Rising</p>
+  </div>
+
+  <!-- NOTIFY FORM -->
+
+  <div class="section section-center" id="notify">
+    <div class="form-wrap">
+      <p class="form-title">Be the first to know.</p>
+      <p class="form-sub">Opening soon. Leave your email and you will hear when it does.</p>
+      <div class="form-field">
+        <input type="email" placeholder="Your email address">
+        <button class="btn btn-primary">Notify me when it opens</button>
+      </div>
+      <p class="form-note">No spam. Just the one email when it opens.</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    Keepers of the Wild Heart &nbsp;·&nbsp; by Giulia
+  </footer>
+
+</body>
+</html>
