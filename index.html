@@ -333,11 +333,29 @@ body {
 }
 
 .systeme-crop iframe {
-  width: calc(100% + 40px) !important;
-  margin-left: -20px !important;
+  width: 100% !important;
   display: block;
   border: none !important;
   outline: none !important;
+  box-shadow: none !important;
+}
+
+/* paint over top border line and vertical side lines */
+.systeme-crop::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: #0a0a0a;
+  z-index: 10;
+}
+.systeme-crop::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: #0a0a0a;
+  z-index: 10;
 }
 
 /* ── FOOTER ── */
