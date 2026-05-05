@@ -340,12 +340,12 @@ body {
   box-shadow: none !important;
 }
 
-/* paint over top border line and vertical side lines */
+/* paint over vertical side lines */
 .systeme-crop::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
   background: #0a0a0a;
   z-index: 10;
 }
