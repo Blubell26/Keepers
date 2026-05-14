@@ -9,7 +9,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-```
 html {
   scroll-behavior: smooth;
   background: #0a0a0a;
@@ -323,39 +322,56 @@ body {
   letter-spacing: 0.06em;
 }
 
-/* ── SYSTEME FORM CROP ── */
-.systeme-crop {
-  overflow: hidden;
-  height: 260px;
-  margin: 0 auto;
-  max-width: 420px;
-  position: relative;
+/* ── NEWSLETTER FORM ── */
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
-.systeme-crop iframe {
-  width: 100% !important;
-  display: block;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+.newsletter-form input[type="email"] {
+  width: 100%;
+  background: rgba(240,235,227,0.05);
+  border: 1px solid rgba(240,235,227,0.18);
+  border-radius: 1px;
+  padding: 16px 20px;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #f0ebe3;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
-/* paint over vertical side lines */
-.systeme-crop::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: #0a0a0a;
-  z-index: 10;
+.newsletter-form input[type="email"]::placeholder {
+  color: rgba(240,235,227,0.3);
 }
-.systeme-crop::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 3px; height: 100%;
-  background: #0a0a0a;
-  z-index: 10;
+
+.newsletter-form input[type="email"]:focus {
+  border-color: rgba(201,169,110,0.5);
+  background: rgba(240,235,227,0.07);
+}
+
+.newsletter-form button[type="submit"] {
+  width: 100%;
+  background: #c4521a;
+  color: #f0ebe3;
+  border: none;
+  border-radius: 1px;
+  padding: 16px 40px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.newsletter-form button[type="submit"]:hover {
+  background: #e8956d;
 }
 
 /* ── FOOTER ── */
@@ -423,7 +439,7 @@ You won't find the answers here. You will remember that you already have them.</
         <span class="what-num">I</span>
         <div class="what-text">
           <strong>The remembering</strong>
-        You stop looking outside yourself for what was always inside you. The answers you have been searching for were never out there. They were here the whole time, underneath the noise, waiting for you to get quiet enough to hear them.
+          You stop looking outside yourself for what was always inside you. The answers you have been searching for were never out there. They were here the whole time, underneath the noise, waiting for you to get quiet enough to hear them.
         </div>
       </div>
       <div class="what-item">
@@ -444,7 +460,7 @@ You won't find the answers here. You will remember that you already have them.</
         <span class="what-num">IV</span>
         <div class="what-text">
           <strong>The long game</strong>
-          You build a life your body can actually inhabit. Not a perfect life, not a finished one. A real one, built honestly, sustained by something deeper than willpower, that keeps going even when it gets uncertain. And it will
+          You build a life your body can actually inhabit. Not a perfect life, not a finished one. A real one, built honestly, sustained by something deeper than willpower, that keeps going even when it gets uncertain. And it will.
         </div>
       </div>
     </div>
@@ -460,14 +476,16 @@ You won't find the answers here. You will remember that you already have them.</
     <div class="form-wrap">
       <p class="form-title">Be the first to know.</p>
       <p class="form-sub">Opening soon. Leave your email and you will hear when it does.</p>
-      
-        <form method="post" action="https://systeme.io/embedded/39530282/subscription" class="newsletter-form"> 
-       <input type="email" name="email" placeholder="your@email.com" required>
-      <button type="submit">Notify me</button>
-     </form>
- 
-      <p class="form-note">No spam. Just the one email when it opens.</p>
-    </div>
+
+
+  <form method="post" action="https://systeme.io/embedded/39530282/subscription" class="newsletter-form">
+    <input type="email" name="email" placeholder="your@email.com" required>
+    <button type="submit">Notify me</button>
+  </form>
+
+  <p class="form-note">No spam. Just the one email when it opens.</p>
+</div>
+
   </div>
 
   <footer class="site-footer">
